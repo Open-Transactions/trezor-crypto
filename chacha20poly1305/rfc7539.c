@@ -17,7 +17,7 @@ void rfc7539_init(chacha20poly1305_ctx *ctx, uint8_t key[32], uint8_t nonce[12])
     // Encrypt 64 bytes of zeros and use the first 32 bytes
     // as the Poly1305 key.
     ECRYPT_encrypt_bytes(&ctx->chacha20, block0, block0, 64);
-    poly1305_init(&ctx->poly1305, block0);
+    poly1305_init_trezor(&ctx->poly1305, block0);
 }
 
 // Include authenticated data in the Poly1305 MAC using the RFC 7539

@@ -31,7 +31,7 @@ void xchacha20poly1305_init(chacha20poly1305_ctx *ctx, uint8_t key[32], uint8_t 
     // Encrypt 64 bytes of zeros and use the first 32 bytes
     // as the Poly1305 key.
     ECRYPT_encrypt_bytes(&ctx->chacha20, block0, block0, 64);
-    poly1305_init(&ctx->poly1305, block0);
+    poly1305_init_trezor(&ctx->poly1305, block0);
 }
 
 // Encrypt n bytes of plaintext where n must be evenly divisible by the

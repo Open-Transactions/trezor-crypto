@@ -41,7 +41,7 @@ poly1305_update(poly1305_context *ctx, const unsigned char *m, size_t bytes) {
 void
 poly1305_auth(unsigned char mac[16], const unsigned char *m, size_t bytes, const unsigned char key[32]) {
 	poly1305_context ctx;
-	poly1305_init(&ctx, key);
+	poly1305_init_trezor(&ctx, key);
 	poly1305_update(&ctx, m, bytes);
 	poly1305_finish(&ctx, mac);
 }
@@ -142,7 +142,7 @@ poly1305_power_on_self_test(void) {
 
 	for (i = 0; i < sizeof(mac); i++)
 		mac[i] = 0;
-	poly1305_init(&ctx, nacl_key);
+	poly1305_init_trezor(&ctx, nacl_key);
 	poly1305_update(&ctx, nacl_msg +   0, 32);
 	poly1305_update(&ctx, nacl_msg +  32, 64);
 	poly1305_update(&ctx, nacl_msg +  96, 16);
@@ -162,7 +162,7 @@ poly1305_power_on_self_test(void) {
 	poly1305_auth(mac, wrap_msg, sizeof(wrap_msg), wrap_key);
 	result &= poly1305_verify(wrap_mac, mac);
 
-	poly1305_init(&total_ctx, total_key);
+	poly1305_init_trezor(&total_ctx, total_key);
 	for (i = 0; i < 256; i++) {
 		/* set key and message to 'i,i,i..' */
 		for (j = 0; j < sizeof(all_key); j++)
